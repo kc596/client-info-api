@@ -40,18 +40,39 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<dependency>
-			<groupId>io.reactivex.rxjava3</groupId>
-			<artifactId>rxjava</artifactId>
-			<version>3.0.5</version>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>io.reactivex.rxjava3</groupId>-->
+			<!--<artifactId>rxjava</artifactId>-->
+			<!--<version>3.0.5</version>-->
+		<!--</dependency>-->
 	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>local</id>
+			<properties>
+				<DATA-CENTER>local</DATA-CENTER>
+			</properties>
+		</profile>
+		<profile>
+			<id>server</id>
+			<properties>
+				<DATA-CENTER>aws</DATA-CENTER>
+			</properties>
+		</profile>
+	</profiles>
 
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<profiles>
+						<profile>local</profile>
+						<profile>server</profile>
+					</profiles>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
