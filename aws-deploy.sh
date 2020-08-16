@@ -13,9 +13,13 @@ sudo chmod +x /usr/local/bin/docker-compose
 sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 docker-compose --version
 
+# app setup and build
+docker-compose build --build-arg $PROFILE
+sudo usermod -aG docker $USER
+newgrp docker
+
 # test installation
 sudo docker run hello-world
 
-# running the app
-docker-compose build --build-arg $PROFILE
+# start the app
 docker-compose up -d
