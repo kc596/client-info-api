@@ -8,5 +8,6 @@ import lombok.Setter;
 public class ClientInfoResponseDTO {
     private String userAgent;
     private String ip;
+    private String route;
     private String proxy;
 }
