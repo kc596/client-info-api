@@ -23,6 +23,3 @@ sudo docker run hello-world
 
 # start the app
 docker-compose up -d
-
-# copy start up script
-cp aws-run.sh $HOME/aws-run.sh
