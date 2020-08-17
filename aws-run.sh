@@ -3,4 +3,4 @@ docker-compose build --build-arg aws
 docker-compose up -d
 
 #crontab -e
-#@reboot  $HOME/aws-run.sh
+#@reboot  $HOME/client-info/aws-run.sh
