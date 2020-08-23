@@ -1,6 +1,11 @@
 # client-info-api
 
-API to view UA, IP, PROXY and FORWARDED-FOR of client.
+1. API to view UA, IP, PROXY and FORWARDED-FOR of client. <br />
+**GET** ```/clientinfo/view```
+
+2. API to view *whois* info (and ip address) of any domain (or bulk). <br />
+**GET** &nbsp;  ```/whoisinfo/<domain>``` <br />
+**POST**        ```/whoisinfo/bulk```
 
 ## Deploying on aws
 1. Setup EC2 instance.
