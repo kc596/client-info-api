@@ -14,4 +14,4 @@
 4. Clone this project.
 ```git clone https://github.com/kc596/client-info-api.git```
 5. Run aws deploy script for Ubuntu 16 else follow equivalent steps.
-```sudo sh aws-deploy.sh```
+```sudo sh aws-deploy-and-run.sh```
