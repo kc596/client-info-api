@@ -4,8 +4,8 @@
 **GET** ```/clientinfo/view```
 
 2. API to view *whois* info (and ip address) of any url (or bulk). <br />
-**GET** &nbsp;  ```/whoisinfo/?domain=<url>``` <br />
-**POST**        ```/whoisinfo/bulk```
+**GET** | **POST**                                              ```/whoisinfo/?domain=<url>``` <br />
+**POST** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```/whoisinfo/bulk```
 
 ## Deploying on aws
 1. Setup EC2 instance.
