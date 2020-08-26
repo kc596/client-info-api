@@ -13,4 +13,7 @@ import org.springframework.context.annotation.PropertySource;
 public class ApplicationConfig {
     @Value("${dataCenter}")
     private String dataCenter;
+
+    @Value("${defaultWhoisHost}")
+    private String defaultWhoisHost;
 }
