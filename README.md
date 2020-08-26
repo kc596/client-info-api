@@ -3,8 +3,8 @@
 1. API to view UA, IP, PROXY and FORWARDED-FOR of client. <br />
 **GET** ```/clientinfo/view```
 
-2. API to view *whois* info (and ip address) of any domain (or bulk). <br />
-**GET** &nbsp;  ```/whoisinfo/<domain>``` <br />
+2. API to view *whois* info (and ip address) of any url (or bulk). <br />
+**GET** &nbsp;  ```/whoisinfo/?domain=<url>``` <br />
 **POST**        ```/whoisinfo/bulk```
 
 ## Deploying on aws
