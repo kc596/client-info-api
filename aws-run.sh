@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-docker-compose build --build-arg aws
+docker-compose build --build-arg server
 docker-compose up -d
 
 #crontab -e
