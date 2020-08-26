@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # script to setup project directly on aws ec2 (ubuntu 16)
-PROFILE=aws
+PROFILE=server
 
 # install docker
 curl -fsSL https://get.docker.com -o get-docker.sh
