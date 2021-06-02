@@ -17,7 +17,7 @@
 ```sudo sh aws-deploy-and-run.sh```
 
 
-### Reactive Programming
+## Reactive Programming
 
 Everything in the world is in motion - Traffic, weather, people, bank transactions... and are constantly changing.
 These different events are happening at the same time - sometimes they are independent, sometimes they can converge and interact.
@@ -46,7 +46,7 @@ Read [Introduction to Reactive Programming] for more.
 
 4. Composability and readability with high value abstraction that is concurrency-agnostic.
 
-### Frameworks and Libraries
+## Frameworks and Libraries
 
 
 | Name              | Description   |
@@ -55,11 +55,6 @@ Read [Introduction to Reactive Programming] for more.
 |[Spring WebFlux]   | reactive programming support for web applications |
 |[Spring Reactor]   | fully non-blocking reactive programming foundation for the JVM |
 |[Spring WebClient] | non-blocking http client with support for reactive streams |
-
-
-## High Level Architecture
-
-This project is part of Sherlock and fits as shown in the diagram of this [wiki](todo)
 
 
 [//]: 
