@@ -57,8 +57,6 @@ Read [Introduction to Reactive Programming] for more.
 |[Spring WebClient] | non-blocking http client with support for reactive streams |
 
 
-[//]: 
-# (These are reference links used and get stripped out when the markdown processor does its job)
 
 [Spring Boot]: <https://spring.io/projects/spring-boot>
 [Spring WebFlux]: <https://www.baeldung.com/spring-webflux>
