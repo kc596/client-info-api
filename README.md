@@ -45,8 +45,10 @@ Read [Introduction to Reactive Programming] for more.
     iii. They lack support for multiple values and advanced error handling.
 
 4. Composability and readability with high value abstraction that is concurrency-agnostic.
+5. Cancel-and-clean-up behavior represented by the Disposable interface. subscribe() have a Disposable return type and subscription can be cancelled, by calling its dispose() method.
 
-## Frameworks and Libraries
+
+### Frameworks and Libraries
 
 
 | Name              | Description   |
@@ -55,6 +57,89 @@ Read [Introduction to Reactive Programming] for more.
 |[Spring WebFlux]   | reactive programming support for web applications |
 |[Spring Reactor]   | fully non-blocking reactive programming foundation for the JVM |
 |[Spring WebClient] | non-blocking http client with support for reactive streams |
+
+
+### Schedulers
+
+The Schedulers class has static methods that give access to the following execution contexts:
+
+1. No execution context (**Schedulers.immediate()**)
+
+2. A single, reusable thread (**Schedulers.single()**)
+
+    This method reuses the same thread for all callers, until the Scheduler is disposed. If you want a per-call dedicated thread, use **Schedulers.newSingle()** for each call.
+
+3. An unbounded elastic thread pool (**Schedulers.elastic()**)
+
+4. A bounded elastic thread pool (**Schedulers.boundedElastic()**). 
+ 
+5. A fixed pool of workers that is tuned for parallel work (**Schedulers.parallel()**). 
+
+    It creates as many workers as you have CPU cores.
+    
+> While boundedElastic is made to help with legacy blocking code if it cannot be avoided, single and parallel are not. 
+> As a consequence, the use of Reactor blocking APIs (**block()**, **blockFirst()**, **blockLast()** 
+> (as well as iterating over **toIterable()** or **toStream()**) inside the default single and parallel schedulers) results in an **IllegalStateException** being thrown.
+
+Reactor offers two means of switching the execution context (or Scheduler) in a reactive chain: **publishOn** and **subscribeO**.
+
+### Errors
+
+1. Any error in a reactive sequence is a terminal event. 
+    Even if an error-handling operator is used, it does not let the original sequence continue. 
+    Rather, it converts the *onError* signal into the start of a new sequence.
+
+2. When subscribing, the **onError** callback at the end of the chain is akin to a catch block. 
+    There, execution skips to the catch in case an Exception is thrown,
+
+3. **onErrorReturn** - equivalent of “Catch and return a static default value”
+
+4. **onErrorResume** - “Catch and execute an alternative path with a fallback method”
+    ```java
+    Flux.just("timeout1", "unknown", "key2")
+        .flatMap(k -> callExternalService(k)
+            .onErrorResume(error -> { 
+                if (error instanceof TimeoutException) 
+                    return getFromCache(k);
+                else if (error instanceof UnknownKeyException)  
+                    return registerNewEntry(k, "DEFAULT");
+                else
+                    return Flux.error(error); 
+            })
+        );
+    ```
+5. **onErrorMap** - Catch and rethrow
+
+6. **doOnError** - equivalent of “Catch, log an error-specific message, and re-throw”.
+    It still terminates with an error, unless we use an error-recovery operator here.
+
+7. **doFinally** is about side-effects that you want to be executed whenever the sequence 
+    terminates (with onComplete or onError) or is cancelled. It gives you a hint as to what kind of termination triggered the side-effect.
+    
+8. **using** handles the case where a Flux is derived from a resource and that resource must be acted upon whenever processing is done.
+
+9. **retry** - works by re-subscribing to the upstream Flux in case of error. 
+    Doesn't starts from point of error but from start of stream. **retryWhen**
+   
+Reactor, defines a set of exceptions (such as *OutOfMemoryError*) that are always deemed to be fatal. 
+These errors mean that Reactor cannot keep operating and are thrown rather than propagated.
+
+
+There are also cases where an unchecked exception still cannot be propagated (most notably during the subscribe and request phases),
+due to concurrency races that could lead to double onError or onComplete conditions. 
+When these races happen, the error that cannot be propagated is “dropped”.
+The corresponding hooks, **onNextDropped** and **onErrorDropped**, let you provide a global Consumer for these drops.
+
+
+#### Checked Exceptions
+
+Reactor has an Exceptions utility class that you can use to ensure that exceptions are wrapped only if they are checked exceptions:
+
+- Use the **Exceptions.propagate** method to wrap exceptions, if necessary. It also calls throwIfFatal first and does not wrap RuntimeException.
+
+- Use the **Exceptions.unwrap** method to get the original unwrapped exception (going back to the root cause of a hierarchy of reactor-specific exceptions).
+
+
 
 
 
